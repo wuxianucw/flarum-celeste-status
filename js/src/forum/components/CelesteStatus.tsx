@@ -28,7 +28,6 @@ export interface CelesteStatusInfo {
 }
 
 export default class CelesteStatus extends Component<CelesteStatusAttrs, CelesteStatusState> {
-
   oninit(vnode: Mithril.Vnode<CelesteStatusAttrs, this>) {
     super.oninit(vnode);
 
@@ -51,12 +50,12 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
     return (
       <div className="CelesteStatus-container">
         <div className="CelesteStatus-refresh">
-          <Button className="Button" icon="fas fa-sync" onclick={this.fetch.bind(this)} disabled={disabled}>刷新</Button>
+          <Button className="Button" icon="fas fa-sync" onclick={this.fetch.bind(this)} disabled={disabled}>
+            刷新
+          </Button>
         </div>
         {status ? (
-          <div className="CelesteStatus-content">
-            {`${status.Name} 正在玩 ${status.MapName} (${status.Side} 面)`}
-          </div>
+          <div className="CelesteStatus-content">{`${status.Name} 正在玩 ${status.MapName} (${status.Side} 面)`}</div>
         ) : (
           <div className="CelesteStatus-offline">该玩家当前不在线</div>
         )}
@@ -74,18 +73,21 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
       method: 'GET',
       url: 'http://celesteserver.centralteam.cn:17232/api/player',
       params: { playername: userName },
-    }).then((data: any) => {
-      console.log(data);
-      this.state.status = (typeof data === 'object' && typeof data.ID === 'number') ? data : null;
-    }).catch(() => {
-      this.state.status = null;
-    }).finally(() => {
-      this.state.loading = false;
-      this.state.disabled = true;
-      setTimeout(() => {
-        this.state.disabled = false;
-        m.redraw();
-      }, 5000);
-    });
+    })
+      .then((data: any) => {
+        console.log(data);
+        this.state.status = typeof data === 'object' && typeof data.ID === 'number' ? data : null;
+      })
+      .catch(() => {
+        this.state.status = null;
+      })
+      .finally(() => {
+        this.state.loading = false;
+        this.state.disabled = true;
+        setTimeout(() => {
+          this.state.disabled = false;
+          m.redraw();
+        }, 5000);
+      });
   }
 }
