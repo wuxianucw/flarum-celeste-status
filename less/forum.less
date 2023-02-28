@@ -1,0 +1,37 @@
+.UserCard-info>li.item-celesteStatus {
+  display: block;
+}
+
+.CelesteStatus-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: @border-radius;
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+  .LoadingIndicator-container--block {
+    height: 40px;
+  }
+}
+
+.CelesteStatus-refresh {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  .Button {
+    padding: 3px 13px;
+  }
+}
+
+.CelesteStatus-offline, .CelesteStatus-content {
+  height: 40px;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
