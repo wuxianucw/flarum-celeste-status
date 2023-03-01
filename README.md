@@ -23,4 +23,4 @@ php flarum cache:clear
 ## Links
 
 - [Packagist](https://packagist.org/packages/ucw/flarum-celeste-status)
-- [GitHub](https://github.com/ucw/flarum-celeste-status)
+- [GitHub](https://github.com/wuxianucw/flarum-celeste-status)
