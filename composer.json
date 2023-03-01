@@ -22,12 +22,12 @@
     },
     "extra": {
         "flarum-extension": {
-            "title": "Celeste-status",
+            "title": "Celeste Status",
             "category": "",
             "icon": {
-                "name": "",
-                "color": "",
-                "backgroundColor": ""
+                "image": "backpack.png",
+                "backgroundSize": "cover",
+                "backgroundColor": "rgb(221, 221, 221)"
             }
         },
         "flarum-cli": {
