@@ -55,9 +55,9 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
           </Button>
         </div>
         {status ? (
-          <div className="CelesteStatus-content">{`${status.Name} 正在玩 ${status.MapName} (${status.Side} 面)`}</div>
+          <div className="CelesteStatus-content">{`TA 正在玩 ${status.MapName} (${status.Side} 面)`}</div>
         ) : (
-          <div className="CelesteStatus-offline">该玩家当前不在线</div>
+          <div className="CelesteStatus-offline">TA 当前不在游戏中</div>
         )}
       </div>
     );
@@ -71,11 +71,10 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
 
     m.request({
       method: 'GET',
-      url: 'http://celesteserver.centralteam.cn:17232/api/player',
+      url: 'https://api.centralteam.cn/api/player',
       params: { playername: userName },
     })
       .then((data: any) => {
-        console.log(data);
         this.state.status = typeof data === 'object' && typeof data.ID === 'number' ? data : null;
       })
       .catch(() => {
@@ -87,7 +86,7 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
         setTimeout(() => {
           this.state.disabled = false;
           m.redraw();
-        }, 5000);
+        }, 3000);
       });
   }
 }
