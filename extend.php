@@ -21,4 +21,11 @@ return [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
     new Extend\Locales(__DIR__.'/locale'),
+    (new Extend\Settings())
+        ->serializeToForum('ucw-celeste-status.url', 'ucw-celeste-status.url')
+        ->serializeToForum('ucw-celeste-status.min_refresh_interval', 'ucw-celeste-status.min_refresh_interval', 'intval', 3000)
+        ->serializeToForum('ucw-celeste-status.online_text', 'ucw-celeste-status.online_text')
+        ->serializeToForum('ucw-celeste-status.offline_text', 'ucw-celeste-status.offline_text')
+        ->default('ucw-celeste-status.url', 'https://api.centralteam.cn/api/player')
+        ->default('ucw-celeste-status.min_refresh_interval', 3000),
 ];

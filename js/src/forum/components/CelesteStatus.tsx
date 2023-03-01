@@ -1,4 +1,5 @@
 import Mithril from 'mithril';
+import app from 'flarum/forum/app';
 import Component, { ComponentAttrs } from 'flarum/common/Component';
 import User from 'flarum/common/models/User';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
@@ -28,6 +29,10 @@ export interface CelesteStatusInfo {
 }
 
 export default class CelesteStatus extends Component<CelesteStatusAttrs, CelesteStatusState> {
+  readonly ONLINE_TEXT = app.forum.attribute('ucw-celeste-status.online_text') as string || app.translator.trans('ucw-celeste-status.forum.default_online_text').toString();
+  readonly UNKNOWN_PING = app.translator.trans('ucw-celeste-status.forum.unknown_ping').toString();
+  readonly OFFLINE_TEXT = app.forum.attribute('ucw-celeste-status.offline_text') as string || app.translator.trans('ucw-celeste-status.forum.default_offline_text').toString();
+
   oninit(vnode: Mithril.Vnode<CelesteStatusAttrs, this>) {
     super.oninit(vnode);
 
@@ -51,13 +56,21 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
       <div className="CelesteStatus-container">
         <div className="CelesteStatus-refresh">
           <Button className="Button" icon="fas fa-sync" onclick={this.fetch.bind(this)} disabled={disabled}>
-            刷新
+            {app.translator.trans('ucw-celeste-status.forum.refresh')}
           </Button>
         </div>
+        {/* use different classes for further development: content may be more complex in the future */}
         {status ? (
-          <div className="CelesteStatus-content">{`TA 正在玩 ${status.MapName} (${status.Side} 面)`}</div>
+          <div className="CelesteStatus-content">{
+            this.ONLINE_TEXT
+              .replace(/\$\(name\)/, status.Name)
+              .replace(/\$\(map\)/, status.MapName)
+              .replace(/\$\(side\)/, status.Side)
+              .replace(/\$\(ping\)/, status.TCPPingMs === null ?
+                (status.UDPPingMs === null ? this.UNKNOWN_PING : `${status.UDPPingMs}ms`) : `${status.TCPPingMs}ms`)
+          }</div>
         ) : (
-          <div className="CelesteStatus-offline">TA 当前不在游戏中</div>
+          <div className="CelesteStatus-offline">{this.OFFLINE_TEXT}</div>
         )}
       </div>
     );
@@ -71,7 +84,7 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
 
     m.request({
       method: 'GET',
-      url: 'https://api.centralteam.cn/api/player',
+      url: app.forum.attribute('ucw-celeste-status.url'),
       params: { playername: userName },
     })
       .then((data: any) => {
@@ -82,11 +95,15 @@ export default class CelesteStatus extends Component<CelesteStatusAttrs, Celeste
       })
       .finally(() => {
         this.state.loading = false;
+        const timeout = app.forum.attribute('ucw-celeste-status.min_refresh_interval');
+        if (typeof timeout !== 'number' || timeout <= 0) {
+          return;
+        }
         this.state.disabled = true;
         setTimeout(() => {
           this.state.disabled = false;
           m.redraw();
-        }, 3000);
+        }, timeout);
       });
   }
 }

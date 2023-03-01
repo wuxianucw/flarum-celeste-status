@@ -1,0 +1,20 @@
+ucw-celeste-status:
+  admin:
+    url_label: API URL
+    url_help: 设置用于查询 Celeste 玩家状态的 API 地址，<strong>不包括</strong> Query string（<code>?</code> 后面的部分）。例如：<code>https://example.com/api/player</code>。
+
+    min_refresh_interval_label: 最小刷新间隔
+    min_refresh_interval_help: 最小刷新间隔，单位为毫秒。设置一个合适的值可以防止用户频繁点击刷新按钮。默认值为 3000（3 秒）。
+
+    online_text_label: 在线显示文本
+    online_text_help: 当玩家在线时显示的文本。可用的变量有：<code>$(name)</code>（玩家名），<code>$(map)</code>（地图名），<code>$(side)</code>（地图的面，A/B/C/...），<code>$(ping)</code>（TCP/UDP 延迟，<code>Xms</code> 或 <code>未知</code>）。默认值为 <code>TA 正在玩 $(map) ($(side) 面)</code>。留空使用默认值。
+
+    offline_text_label: 离线显示文本
+    offline_text_help: 当玩家离线时显示的文本。默认值为 <code>TA 当前不在游戏中</code>。留空使用默认值。
+
+  forum:
+    refresh: 刷新
+
+    default_online_text: TA 正在玩 $(map) ($(side) 面)
+    unknown_ping: 未知
+    default_offline_text: TA 当前不在游戏中

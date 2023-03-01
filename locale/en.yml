@@ -2,6 +2,21 @@ ucw-celeste-status:
   # For more details on the format
   # Checkout https://docs.flarum.org/extend/i18n/#appendix-a-standard-key-format
   admin:
-    my_cool_key: My Cool Key
+    url_label: API URL
+    url_help: Enter your Celeste status API URL (without query string) here, e.g. <code>https://example.com/api/player</code>.
+
+    min_refresh_interval_label: Minimum Refresh Interval
+    min_refresh_interval_help: The minimum refresh interval in milliseconds. A proper value can prevent some users from clicking the refresh button too frequently. Defaults to 3000 (3 seconds).
+
+    online_text_label: Online Text
+    online_text_help: 'The text to display when the player is online. The following variables are available: <code>$(name)</code> (player name), <code>$(map)</code> (map name), <code>$(side)</code> (map side, A/B/C/...), <code>$(ping)</code> (TCP/UDP ping, "Xms" or "unknown"). Defaults to <code>Playing $(map) ($(side) side)</code>. Leave it blank to use the default value.'
+
+    offline_text_label: Offline Text
+    offline_text_help: The text to display when the player is offline. Defaults to <code>Not playing Celeste at this time</code>. Leave it blank to use the default value.
 
   forum:
+    refresh: Refresh
+
+    default_online_text: Playing $(map) ($(side) side)
+    unknown_ping: unknown
+    default_offline_text: Not playing Celeste at this time
